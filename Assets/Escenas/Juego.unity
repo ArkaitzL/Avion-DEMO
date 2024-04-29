@@ -559,7 +559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 10, z: -20}
+  m_FollowOffset: {x: 0, y: 12.5, z: -20}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -713,8 +713,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 956862820}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.22975291, y: 0.000000018722702, z: -0.00000000441983, w: 0.973249}
-  m_LocalPosition: {x: 0, y: 10, z: -20}
+  m_LocalRotation: {x: 0.2756825, y: -0, z: -0, w: 0.96124876}
+  m_LocalPosition: {x: 0, y: 12.5, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1448,8 +1448,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413620247}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.22975291, y: 0.000000018722702, z: -0.00000000441983, w: 0.973249}
-  m_LocalPosition: {x: 0, y: 10, z: -20}
+  m_LocalRotation: {x: 0.2756825, y: -0, z: -0, w: 0.96124876}
+  m_LocalPosition: {x: 0, y: 12.5, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2209,7 +2209,9 @@ MonoBehaviour:
   aceleracion: 0.1
   aceleracion_max: 100
   velocidad_max: 250
-  manejabilidad: 20
+  manejabilidad_alabeo: 20
+  manejabilidad_cabeceo: 20
+  manejabilidad_guinada: 30
   fuerza_elevacion: 135
   helice: {fileID: 262293028}
 --- !u!65 &9064886185720589903

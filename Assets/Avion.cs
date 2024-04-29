@@ -7,17 +7,12 @@ using BaboOnLite;
 [RequireComponent(typeof(Rigidbody))]
 public class Avion : MonoBehaviour
 {
-    float fuerzas {
-        get => (rb.mass / 10f) * manejabilidad;
-    }
-
     Controlador.Teclas.Avion teclas {
         get => controlador.teclas.avion;
     }
 
-    [SerializeField] float aceleracion = .1f, aceleracion_max = 100;
-    [SerializeField] float velocidad_max = 200;
-    [SerializeField] float manejabilidad = 10;
+    [SerializeField] float aceleracion = .1f, aceleracion_max = 100, velocidad_max = 200;
+    [SerializeField] float manejabilidad_alabeo = 20, manejabilidad_cabeceo = 20, manejabilidad_guinada = 20;
     [SerializeField] float fuerza_elevacion = 135;
 
     [Space]
@@ -49,13 +44,15 @@ public class Avion : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce(transform.forward * velocidad_max * velociad);  //Acelerar
-        rb.AddTorque(transform.up * guinada * fuerzas);             //Rotar
-        rb.AddTorque(transform.right * cabeceo * fuerzas);          //Ascender
-        rb.AddTorque(transform.forward * alabeo * fuerzas);         //Inclinarse
+        rb.AddForce(transform.forward * velocidad_max * velociad);                  //Acelerar
+        rb.AddTorque(transform.up * guinada * fuerzas(manejabilidad_guinada));      //Rotar
+        rb.AddTorque(transform.right * cabeceo * fuerzas(manejabilidad_cabeceo));   //Ascender
+        rb.AddTorque(transform.forward * alabeo * fuerzas(manejabilidad_alabeo));   //Inclinarse
 
-        rb.AddForce(Vector3.up * rb.velocity.magnitude * fuerza_elevacion); //Elevacion
+        rb.AddForce(Vector3.up * rb.velocity.magnitude * fuerza_elevacion);         //Elevacion
     }
+
+    float fuerzas(float manejabilidad) => (rb.mass / 10f) * manejabilidad;
 
     void Controles() 
     {
