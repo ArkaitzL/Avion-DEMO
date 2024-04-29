@@ -19,7 +19,7 @@ public class Avion : MonoBehaviour
 
     [SerializeField] Transform helice;
 
-    float velociad;    
+    float potencia;    
     float alabeo, cabeceo, guinada;     
 
     Controlador controlador;
@@ -31,7 +31,7 @@ public class Avion : MonoBehaviour
         controlador = Instanciar<Controlador>.Coger();
         hud = Instanciar<HUD>.Coger();
 
-        rb = GetComponent<Rigidbody>(); 
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -39,12 +39,18 @@ public class Avion : MonoBehaviour
         Controles();
         Helice();
 
-        hud.Info(velociad, rb.velocity.magnitude * 3.6f, transform.position);
+        hud.Info(
+            potencia,
+            //rb.velocity.magnitude * 3.6f,
+            rb.velocity.z * 3.6f,
+            transform.position
+       );
     }
 
     private void FixedUpdate()
     {
-        rb.AddForce(transform.forward * velocidad_max * velociad);                  //Acelerar
+        rb.AddForce(transform.forward * velocidad_max * potencia);                  //Acelerar
+
         rb.AddTorque(transform.up * guinada * fuerzas(manejabilidad_guinada));      //Rotar
         rb.AddTorque(transform.right * cabeceo * fuerzas(manejabilidad_cabeceo));   //Ascender
         rb.AddTorque(transform.forward * alabeo * fuerzas(manejabilidad_alabeo));   //Inclinarse
@@ -72,19 +78,19 @@ public class Avion : MonoBehaviour
     void Acelerar() 
     {
         if (Input.GetKey(teclas.acelerar)) {
-            velociad += aceleracion;
+            potencia += aceleracion;
         }
         if (Input.GetKey(teclas.desacelerar)) {
-            velociad -= aceleracion;
+            potencia -= aceleracion;
         }
 
-        velociad = Mathf.Clamp(velociad, 0, aceleracion_max);
+        potencia = Mathf.Clamp(potencia, 0, aceleracion_max);
     }
 
     void Helice() 
     {
         if (helice == null) return;
 
-        helice.Rotate(-Vector3.forward * (velociad / 5));
+        helice.Rotate(-Vector3.forward * (potencia / 5));
     }
 }
