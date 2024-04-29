@@ -2,17 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using BaboOnLite;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Avion : MonoBehaviour
 {
-    [Serializable] public class Teclas {
-        public KeyCode acelerar = KeyCode.LeftShift;
-        public KeyCode desacelerar = KeyCode.LeftControl;
-    }
     float fuerzas {
         get => (rb.mass / 10f) * manejabilidad;
+    }
+
+    Controlador.Teclas.Avion teclas {
+        get => controlador.teclas.avion;
     }
 
     [SerializeField] float aceleracion = .1f, aceleracion_max = 100;
@@ -20,18 +20,22 @@ public class Avion : MonoBehaviour
     [SerializeField] float manejabilidad = 10;
     [SerializeField] float fuerza_elevacion = 135;
 
-    [Space] [SerializeField] Teclas teclas;
+    [Space]
 
     [SerializeField] Transform helice;
-    [SerializeField] TextMeshProUGUI info;
 
     float velociad;    
     float alabeo, cabeceo, guinada;     
 
+    Controlador controlador;
+    HUD hud;
     Rigidbody rb;
 
-    void Awake() 
+    void Start() 
     {
+        controlador = Instanciar<Controlador>.Coger();
+        hud = Instanciar<HUD>.Coger();
+
         rb = GetComponent<Rigidbody>(); 
     }
 
@@ -39,7 +43,8 @@ public class Avion : MonoBehaviour
     {
         Controles();
         Helice();
-        Info();
+
+        hud.Info(velociad, rb.velocity.magnitude * 3.6f, transform.position);
     }
 
     private void FixedUpdate()
@@ -55,9 +60,13 @@ public class Avion : MonoBehaviour
     void Controles() 
     {
         //Control de avion
-        alabeo = Input.GetAxis("Alabeo");
-        cabeceo = Input.GetAxis("Cabeceo");
-        guinada = Input.GetAxis("Guinada");
+        alabeo = Input.GetKey(teclas.alabeo_positivo) ? 1 : (Input.GetKey(teclas.alabeo_negativo) ? -1 : 0);
+        cabeceo = Input.GetKey(teclas.cabeceo_positivo) ? 1 : (Input.GetKey(teclas.cabeceo_negativo) ? -1 : 0);
+        guinada = Input.GetKey(teclas.guinada_positivo) ? 1 : (Input.GetKey(teclas.guinada_negativo) ? -1 : 0);
+
+        //alabeo = Input.GetAxis("Alabeo");
+        //cabeceo = Input.GetAxis("Cabeceo");
+        //guinada = Input.GetAxis("Guinada");
 
         //Aceleracion
         Acelerar();
@@ -80,14 +89,5 @@ public class Avion : MonoBehaviour
         if (helice == null) return;
 
         helice.Rotate(-Vector3.forward * (velociad / 5));
-    }
-
-    void Info() 
-    {
-        if (info == null) return;
-
-        info.text  = $"Potencia: {velociad.ToString("F0")}%  \n";
-        info.text += $"Velociad: {(rb.velocity.magnitude *3.6f).ToString("F0")}km/h \n";
-        info.text += $"Altitud: {transform.position.y.ToString("F0")}m";
     }
 }
