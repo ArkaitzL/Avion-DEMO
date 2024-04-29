@@ -11,16 +11,26 @@ public class Avion : MonoBehaviour
         get => controlador.teclas.avion;
     }
 
-    [SerializeField] float aceleracion = .1f, aceleracion_max = 100, velocidad_max = 200;
-    [SerializeField] float manejabilidad_alabeo = 20, manejabilidad_cabeceo = 20, manejabilidad_guinada = 20;
+    [Header("Velocidades")]
+    [SerializeField] float aceleracion = .1f;
+    [SerializeField] float aceleracion_max = 100;
+    [SerializeField] float velocidad = 200;
+    [Header("Friccion")]
+    [SerializeField] float friccion_aire = 0.01f;
+    [SerializeField] float friccion_suelo = 1f;
+    [Header("Manejabiliad")]
+    [SerializeField] float manejabilidad_alabeo = 20;
+    [SerializeField] float manejabilidad_cabeceo = 20;
+    [SerializeField] float manejabilidad_guinada = 20;
+    [Header("Otras fuerzas")]
     [SerializeField] float fuerza_elevacion = 135;
 
-    [Space]
-
+    [Header("Componentes")]
     [SerializeField] Transform helice;
 
-    float potencia;    
-    float alabeo, cabeceo, guinada;     
+    float potencia, planeo;             //Fuerzas   
+    float alabeo, cabeceo, guinada;     //Controles
+    bool enSuelo;
 
     Controlador controlador;
     HUD hud;
@@ -39,17 +49,17 @@ public class Avion : MonoBehaviour
         Controles();
         Helice();
 
-        hud.Info(
+        hud.Info1(
             potencia,
-            //rb.velocity.magnitude * 3.6f,
-            rb.velocity.z * 3.6f,
+            rb.velocity.magnitude * 3.6f,
+            //rb.velocity.z * 3.6f,
             transform.position
        );
     }
 
     private void FixedUpdate()
     {
-        rb.AddForce(transform.forward * velocidad_max * potencia);                  //Acelerar
+        rb.AddForce(transform.forward * velocidad * planeo);         //Acelerar
 
         rb.AddTorque(transform.up * guinada * fuerzas(manejabilidad_guinada));      //Rotar
         rb.AddTorque(transform.right * cabeceo * fuerzas(manejabilidad_cabeceo));   //Ascender
@@ -85,12 +95,30 @@ public class Avion : MonoBehaviour
         }
 
         potencia = Mathf.Clamp(potencia, 0, aceleracion_max);
+
+        //Friccion
+        if (planeo < potencia) planeo = potencia;               
+        if (planeo > potencia && planeo >= 0) planeo -= (enSuelo) ? friccion_suelo : friccion_aire;
     }
 
     void Helice() 
     {
         if (helice == null) return;
-
         helice.Rotate(-Vector3.forward * (potencia / 5));
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (!enSuelo)
+        {
+            hud.Info2(true);
+            enSuelo = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        hud.Info2(false);
+        enSuelo = false;
     }
 }
