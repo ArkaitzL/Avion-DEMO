@@ -7,10 +7,23 @@ using BaboOnLite;
 public class HUD : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI info1, info2;
+    [SerializeField] Transform avion;
+    [SerializeField] RectTransform brujula;
 
     void Awake()
     {
         Instanciar<HUD>.Añadir(this);
+    }
+
+    private void Update()
+    {
+        Brujula();
+    }
+
+    void Brujula() 
+    {
+        if (avion == null || brujula == null) return;
+        brujula.rotation = Quaternion.Euler(0f, 0f, -avion.rotation.eulerAngles.y);
     }
 
     public void Info1(float potencia, float velocidad, Vector3 coorenadas)
