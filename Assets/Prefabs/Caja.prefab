@@ -71,7 +71,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 117a980dbf23e9242af72494c1db4a86,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Paquete
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 117a980dbf23e9242af72494c1db4a86,
         type: 3}

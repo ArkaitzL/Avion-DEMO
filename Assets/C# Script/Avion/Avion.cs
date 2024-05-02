@@ -128,6 +128,8 @@ public class Avion : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Paquete")) return;
+
         if (!enSuelo)
         {
             hud.Info2(true);
@@ -144,6 +146,8 @@ public class Avion : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Paquete")) return;
+
         hud.Info2(false);
         enSuelo = false;
     }
