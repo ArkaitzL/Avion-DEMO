@@ -1,11 +1,3 @@
-# Demo Técnica: Mecánicas de Juego
-
-Este repositorio contiene una **demo técnica** que tiene como objetivo explorar y probar mecánicas específicas de juego. Estas demos no son proyectos completos ni juegos finales, sino ejemplos funcionales diseñados para experimentar con conceptos técnicos y de jugabilidad.
-
-Cada demo está enfocada en una mecánica específica, con el objetivo de proporcionar un entorno simple y directo donde se pueda observar y probar su implementación.
-
----
-
 ## Demo: Vuelo de un Avión basado en Físicas
 
 Esta demo permite probar la simulación del vuelo de un avión utilizando físicas realistas y controles básicos. Es ideal para entender los conceptos de movimiento y rotación en el espacio 3D.
