@@ -21,16 +21,3 @@ Los controles están diseñados para ofrecer un manejo intuitivo y una experienc
 - **Espacio**: Soltar la carga.
 - **Tab**: Cambiar entre diferentes cámaras (vista del avión, vista en tercera persona, etc.).
 
-### Características Principales
-- Implementación de físicas para un vuelo realista.
-- Simulación de los tres tipos de rotaciones principales del avión:
-  - **Cabeceo** (Pitch): Controlado con W/S.
-  - **Alabeo** (Roll): Controlado con A/D.
-  - **Guiñada** (Yaw): Controlado con Q/E.
-- Mecánica de carga: La posibilidad de soltar carga con la tecla **G**.
-- Cámaras dinámicas para mejorar la experiencia de prueba.
-
-### Cómo Ejecutar
-1. Clona este repositorio en tu máquina local:
-   ```bash
-   git clone https://github.com/tuusuario/demo-vuelo-avion.git
