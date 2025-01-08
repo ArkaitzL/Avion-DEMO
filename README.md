@@ -18,8 +18,8 @@ Los controles están diseñados para ofrecer un manejo intuitivo y una experienc
 - **Q/E**: Inclinación lateral del avión (control de guiñada).
 - **Shift**: Aumentar la velocidad (acelerar).
 - **Control**: Reducir la velocidad (frenar).
-- **G**: Soltar la carga.
-- **X**: Cambiar entre diferentes cámaras (vista del avión, vista en tercera persona, etc.).
+- **Espacio**: Soltar la carga.
+- **Tab**: Cambiar entre diferentes cámaras (vista del avión, vista en tercera persona, etc.).
 
 ### Características Principales
 - Implementación de físicas para un vuelo realista.
